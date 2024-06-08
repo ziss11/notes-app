@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:viapulsa_test/common/app_colors.dart';
+import 'package:viapulsa_test/presentation/pages/create_note_page.dart';
 import 'package:viapulsa_test/presentation/pages/note_detail_page.dart';
 import 'package:viapulsa_test/presentation/widgets/app_textfield.dart';
 import 'package:viapulsa_test/presentation/widgets/note_item.dart';
@@ -20,7 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   Timer? debounce;
-  late TextEditingController searchController;
+  late final TextEditingController searchController;
 
   void _onSearchChanged(String query) {
     if (debounce?.isActive ?? false) debounce?.cancel();
@@ -87,22 +88,28 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => context.goNamed(NoteDetailPage.route),
+          onPressed: () => context.pushNamed(CreateNotePage.route),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
           child: const Icon(Icons.add),
         ),
-        body: ListView.separated(
-          itemCount: 5,
-          physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
-          separatorBuilder: (context, index) {
-            return const SizedBox(height: 14);
-          },
-          itemBuilder: (context, index) {
-            return const NoteItem();
-          },
+        body: SafeArea(
+          child: ListView.separated(
+            itemCount: 5,
+            physics: const BouncingScrollPhysics(),
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
+            separatorBuilder: (context, index) {
+              return const SizedBox(height: 14);
+            },
+            itemBuilder: (context, index) {
+              return NoteItem(
+                onTap: () {
+                  context.pushNamed(NoteDetailPage.route);
+                },
+              );
+            },
+          ),
         ),
       ),
     );

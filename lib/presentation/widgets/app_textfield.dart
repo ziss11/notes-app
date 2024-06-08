@@ -31,7 +31,7 @@ class AppTextField extends StatelessWidget {
           isDense: true,
           filled: true,
           fillColor: AppColors.darkGrey,
-          hintText: hintText ?? 'Search',
+          hintText: hintText,
           hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
                 color: AppColors.grey,
               ),

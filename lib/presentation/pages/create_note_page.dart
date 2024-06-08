@@ -5,17 +5,17 @@ import 'package:viapulsa_test/common/app_colors.dart';
 import 'package:viapulsa_test/presentation/widgets/note_desc_textfield.dart';
 import 'package:viapulsa_test/presentation/widgets/note_title_textfield.dart';
 
-class NoteDetailPage extends StatefulWidget {
-  static const path = '/detail';
-  static const route = 'detail-page';
+class CreateNotePage extends StatefulWidget {
+  static const path = '/create';
+  static const route = 'create-note-page';
 
-  const NoteDetailPage({super.key});
+  const CreateNotePage({super.key});
 
   @override
-  State<NoteDetailPage> createState() => _NoteDetailPageState();
+  State<CreateNotePage> createState() => _CreateNotePageState();
 }
 
-class _NoteDetailPageState extends State<NoteDetailPage> {
+class _CreateNotePageState extends State<CreateNotePage> {
   late final TextEditingController titleController;
   late final TextEditingController descController;
 
@@ -45,15 +45,6 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
               color: AppColors.grey,
             ),
           ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.delete_outline,
-                color: AppColors.red,
-              ),
-            ),
-          ],
         ),
         body: SafeArea(
           child: Padding(
