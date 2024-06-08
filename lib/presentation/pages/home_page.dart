@@ -1,12 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:viapulsa_test/common/app_colors.dart';
+import 'package:viapulsa_test/presentation/pages/note_detail_page.dart';
 import 'package:viapulsa_test/presentation/widgets/app_textfield.dart';
 import 'package:viapulsa_test/presentation/widgets/note_item.dart';
 
 class HomePage extends StatefulWidget {
+  static const path = '/';
+  static const route = 'home-page';
+
   const HomePage({super.key});
 
   @override
@@ -82,7 +87,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () => context.goNamed(NoteDetailPage.route),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),

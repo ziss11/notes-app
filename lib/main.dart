@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:viapulsa_test/common/app_colors.dart';
-import 'package:viapulsa_test/presentation/pages/home_page.dart';
+import 'package:viapulsa_test/common/router.dart';
 
 void main() {
   runApp(const App());
@@ -11,7 +11,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Notes App',
       theme: ThemeData(
@@ -28,7 +28,9 @@ class App extends StatelessWidget {
           elevation: 0,
         ),
       ),
-      home: const HomePage(),
+      routeInformationParser: router.routeInformationParser,
+      routeInformationProvider: router.routeInformationProvider,
+      routerDelegate: router.routerDelegate,
     );
   }
 }
