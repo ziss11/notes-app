@@ -1,4 +1,5 @@
 import 'package:viapulsa_test/data/models/note_model.dart';
+import 'package:viapulsa_test/data/models/note_response.dart';
 import 'package:viapulsa_test/domain/entities/note.dart';
 
 final tNote = Note(
@@ -20,3 +21,5 @@ final tNoteModel = NoteModel(
 );
 
 final tNoteModels = [tNoteModel];
+
+final tNoteResponseModel = NoteResponse(notes: tNoteModels);

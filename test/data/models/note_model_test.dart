@@ -4,7 +4,7 @@ import 'package:viapulsa_test/data/models/note_model.dart';
 import '../../dummy_data/dummy_object.dart';
 
 void main() {
-  final tMovieJson = {
+  final tNoteJson = {
     'id': 'id',
     'title': 'title',
     'description': 'description',
@@ -14,7 +14,7 @@ void main() {
 
   test('should return a valid model from JSON', () {
     // arrange
-    final Map<String, dynamic> jsonMap = tMovieJson;
+    final Map<String, dynamic> jsonMap = tNoteJson;
     // act
     final result = NoteModel.fromJson(jsonMap);
     // assert
@@ -25,7 +25,7 @@ void main() {
     // act
     final result = tNoteModel.toJson();
     // assert
-    final expectedJsonMap = tMovieJson;
+    final expectedJsonMap = tNoteJson;
     expect(result, expectedJsonMap);
   });
 
