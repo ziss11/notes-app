@@ -8,11 +8,11 @@ import '../../helpers/test_helper.mocks.dart';
 
 void main() {
   late GetNoteById usecase;
-  late MockNoteRepository mockNoteRepository;
+  late MockNoteRepository mockRepository;
 
   setUp(() {
-    mockNoteRepository = MockNoteRepository();
-    usecase = GetNoteById(mockNoteRepository);
+    mockRepository = MockNoteRepository();
+    usecase = GetNoteById(mockRepository);
   });
 
   const tId = 'id';
@@ -21,8 +21,7 @@ void main() {
       'should return note detail from the repository when execute function is called',
       () async {
     // arrange
-    when(mockNoteRepository.getNoteById(tId))
-        .thenAnswer((_) async => Right(tNote));
+    when(mockRepository.getNoteById(tId)).thenAnswer((_) async => Right(tNote));
     // act
     final result = await usecase.execute(tId);
     // assert

@@ -1,5 +1,5 @@
 import 'package:dartz/dartz.dart';
-import 'package:viapulsa_test/common/failure.dart';
+import 'package:viapulsa_test/common/failures.dart';
 import 'package:viapulsa_test/domain/repositories/note_repository.dart';
 
 class AddNote {

@@ -8,23 +8,23 @@ import '../../helpers/test_helper.mocks.dart';
 
 void main() {
   late DeleteNote usecase;
-  late MockNoteRepository mockNoteRepository;
+  late MockNoteRepository mockRepository;
 
   setUp(() {
-    mockNoteRepository = MockNoteRepository();
-    usecase = DeleteNote(mockNoteRepository);
+    mockRepository = MockNoteRepository();
+    usecase = DeleteNote(mockRepository);
   });
 
   const tId = 'id';
 
   test('should delete existing note when execute function is called', () async {
     // arrange
-    when(mockNoteRepository.deleteNote(tId))
+    when(mockRepository.deleteNote(tId))
         .thenAnswer((_) async => const Right(Constants.successDeleteNoteMsg));
     // act
     final result = await usecase.execute(tId);
     // assert
-    verify(mockNoteRepository.deleteNote(tId));
+    verify(mockRepository.deleteNote(tId));
     expect(result, const Right(Constants.successDeleteNoteMsg));
   });
 }

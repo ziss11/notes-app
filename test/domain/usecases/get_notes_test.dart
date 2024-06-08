@@ -8,18 +8,18 @@ import '../../helpers/test_helper.mocks.dart';
 
 void main() {
   late GetNotes usecase;
-  late MockNoteRepository mockNoteRepository;
+  late MockNoteRepository mockRepository;
 
   setUp(() {
-    mockNoteRepository = MockNoteRepository();
-    usecase = GetNotes(mockNoteRepository);
+    mockRepository = MockNoteRepository();
+    usecase = GetNotes(mockRepository);
   });
 
   test(
       'should get list of note from the repository when execute function is called',
       () async {
     // arrange
-    when(mockNoteRepository.getNotes()).thenAnswer((_) async => Right(tNotes));
+    when(mockRepository.getNotes()).thenAnswer((_) async => Right(tNotes));
     // act
     final result = await usecase.execute();
     // assert

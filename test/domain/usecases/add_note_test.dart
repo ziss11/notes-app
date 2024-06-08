@@ -8,11 +8,11 @@ import '../../helpers/test_helper.mocks.dart';
 
 void main() {
   late AddNote usecase;
-  late MockNoteRepository mockNoteRepository;
+  late MockNoteRepository mockRepository;
 
   setUp(() {
-    mockNoteRepository = MockNoteRepository();
-    usecase = AddNote(mockNoteRepository);
+    mockRepository = MockNoteRepository();
+    usecase = AddNote(mockRepository);
   });
 
   const tNoteTitle = 'title';
@@ -20,12 +20,12 @@ void main() {
 
   test('should create new note when execute function is called', () async {
     // arrange
-    when(mockNoteRepository.addNote(tNoteTitle, tNoteDescription))
+    when(mockRepository.addNote(tNoteTitle, tNoteDescription))
         .thenAnswer((_) async => const Right(Constants.successAddNoteMsg));
     // act
     final result = await usecase.execute(tNoteTitle, tNoteDescription);
     // assert
-    verify(mockNoteRepository.addNote(tNoteTitle, tNoteDescription));
+    verify(mockRepository.addNote(tNoteTitle, tNoteDescription));
     expect(result, const Right(Constants.successAddNoteMsg));
   });
 }

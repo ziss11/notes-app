@@ -20,4 +20,18 @@ void main() {
     // assert
     expect(result, tNoteModel);
   });
+
+  test('should return a JSon map containing proper data', () async {
+    // act
+    final result = tNoteModel.toJson();
+    // assert
+    final expectedJsonMap = tMovieJson;
+    expect(result, expectedJsonMap);
+  });
+
+  test('should be a subclass of Note Entity', () {
+    // assert
+    final result = tNoteModel.toEntity();
+    expect(result, tNote);
+  });
 }

@@ -6,8 +6,7 @@ part of '../note_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
-    _$UserModelImpl(
+NoteModel _$NoteModelFromJson(Map<String, dynamic> json) => NoteModel(
       id: json['id'] as String,
       title: json['title'] as String,
       description: json['description'] as String,
@@ -15,8 +14,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       updatedAt: DateTime.parse(json['updatedAt'] as String),
     );
 
-Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$NoteModelToJson(NoteModel instance) => <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
