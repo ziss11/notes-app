@@ -4,9 +4,7 @@ import 'package:viapulsa_test/common/app_colors.dart';
 import 'package:viapulsa_test/common/router.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: '.env');
-
+  await dotenv.load();
   runApp(const App());
 }
 

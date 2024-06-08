@@ -7,15 +7,17 @@ class AppTextField extends StatelessWidget {
   final TextEditingController? controller;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
+  final bool enabled;
   final void Function(String value)? onChanged;
 
   const AppTextField({
     super.key,
-    this.height = 56,
+    this.height = 40,
     this.hintText,
     this.controller,
     this.prefixIcon,
     this.suffixIcon,
+    this.enabled = true,
     this.onChanged,
   });
 
@@ -24,17 +26,19 @@ class AppTextField extends StatelessWidget {
     return SizedBox(
       height: height,
       child: TextFormField(
+        enabled: enabled,
         controller: controller,
         onChanged: onChanged,
-        style: Theme.of(context).textTheme.bodyLarge,
+        style: Theme.of(context).textTheme.bodyMedium,
         decoration: InputDecoration(
           isDense: true,
           filled: true,
           fillColor: AppColors.darkGrey,
           hintText: hintText,
-          hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+          hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: AppColors.grey,
               ),
+          contentPadding: EdgeInsets.zero,
           prefixIcon: prefixIcon,
           suffixIcon: suffixIcon,
           border: OutlineInputBorder(
