@@ -34,6 +34,7 @@ void main() {
     test('should check if the device is online', () async {
       // arrange
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      when(mockLocalDataSource.getCachedNotes()).thenThrow(CacheException());
       when(mockRemoteDataSource.getNotes()).thenAnswer((_) async => []);
       // act
       await repository.getNotes();
@@ -47,9 +48,23 @@ void main() {
       });
 
       test(
-          'should return remote data when the call to remote data source is successful',
+          'should return cached data if the cached data is not empty when the call to remote data source is successful',
           () async {
         // arrange
+        when(mockLocalDataSource.getCachedNotes())
+            .thenAnswer((_) async => tNoteModels);
+        // act
+        final result = await repository.getNotes();
+        // assert
+        final resultList = result.getOrElse(() => []);
+        expect(resultList, tNotes);
+      });
+
+      test(
+          'should return remote data if the cached data is empty when the call to remote data source is successful',
+          () async {
+        // arrange
+        when(mockLocalDataSource.getCachedNotes()).thenThrow(CacheException());
         when(mockRemoteDataSource.getNotes())
             .thenAnswer((_) async => tNoteModels);
         // act
@@ -63,6 +78,7 @@ void main() {
           'should cache data locally when the call to remote data source is successful',
           () async {
         // arrange
+        when(mockLocalDataSource.getCachedNotes()).thenThrow(CacheException());
         when(mockRemoteDataSource.getNotes())
             .thenAnswer((_) async => tNoteModels);
         // act
@@ -76,6 +92,7 @@ void main() {
           'should return server failure when the call to remote data source is unsuccessful',
           () async {
         // arrange
+        when(mockLocalDataSource.getCachedNotes()).thenThrow(CacheException());
         when(mockRemoteDataSource.getNotes()).thenThrow(ServerException());
         // act
         final result = await repository.getNotes();
@@ -93,6 +110,8 @@ void main() {
       test(
           'should return connetion failure when the device not connected to internet',
           () async {
+        // arrange
+        when(mockLocalDataSource.getCachedNotes()).thenThrow(CacheException());
         // act
         final result = await repository.getNotes();
         // assert
@@ -189,6 +208,17 @@ void main() {
         expect(result, const Right(Constants.successAddNoteMsg));
       });
 
+      test('should clear cached notes when add note successful', () async {
+        // arrange
+        when(mockRemoteDataSource.addNote(tNoteTitle, tNoteDescription))
+            .thenAnswer((_) async => Constants.successAddNoteMsg);
+        // act
+        await repository.addNote(tNoteTitle, tNoteDescription);
+        // assert
+        verify(mockRemoteDataSource.addNote(tNoteTitle, tNoteDescription));
+        verify(mockLocalDataSource.clearCacheNotes());
+      });
+
       test(
           'should return server failure when the call to remote data source is unsuccessful',
           () async {
@@ -247,6 +277,18 @@ void main() {
             await repository.editNote(tId, tNoteTitle, tNoteDescription);
         // assert
         expect(result, const Right(Constants.successAddNoteMsg));
+      });
+
+      test('should clear chached notes when edit note successful', () async {
+        // arrange
+        when(mockRemoteDataSource.editNote(tId, tNoteTitle, tNoteDescription))
+            .thenAnswer((_) async => Constants.successAddNoteMsg);
+        // act
+        await repository.editNote(tId, tNoteTitle, tNoteDescription);
+        // assert
+        verify(
+            mockRemoteDataSource.editNote(tId, tNoteTitle, tNoteDescription));
+        verify(mockLocalDataSource.clearCacheNotes());
       });
 
       test(
@@ -309,6 +351,17 @@ void main() {
         final result = await repository.deleteNote(tId);
         // assert
         expect(result, const Right(Constants.successAddNoteMsg));
+      });
+
+      test('should clear chached notes when delete note successful', () async {
+        // arrange
+        when(mockRemoteDataSource.deleteNote(tId))
+            .thenAnswer((_) async => Constants.successAddNoteMsg);
+        // act
+        await repository.deleteNote(tId);
+        // assert
+        verify(mockRemoteDataSource.deleteNote(tId));
+        verify(mockLocalDataSource.clearCacheNotes());
       });
 
       test(

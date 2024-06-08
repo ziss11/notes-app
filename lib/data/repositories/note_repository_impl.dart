@@ -27,6 +27,8 @@ class NoteRepositoryImpl implements NoteRepository {
     if (await _networkInfo.isConnected) {
       try {
         final result = await _remoteDataSource.addNote(title, description);
+        _localDataSource.clearCacheNotes();
+
         return Right(result);
       } on ServerException {
         return const Left(ServerFailure(''));
@@ -41,6 +43,8 @@ class NoteRepositoryImpl implements NoteRepository {
     if (await _networkInfo.isConnected) {
       try {
         final result = await _remoteDataSource.deleteNote(id);
+        _localDataSource.clearCacheNotes();
+
         return Right(result);
       } on ServerException {
         return const Left(ServerFailure(''));
@@ -59,6 +63,8 @@ class NoteRepositoryImpl implements NoteRepository {
     if (await _networkInfo.isConnected) {
       try {
         final result = await _remoteDataSource.editNote(id, title, description);
+        _localDataSource.clearCacheNotes();
+
         return Right(result);
       } on ServerException {
         return const Left(ServerFailure(''));
@@ -84,17 +90,22 @@ class NoteRepositoryImpl implements NoteRepository {
 
   @override
   Future<Either<Failure, List<Note>>> getNotes() async {
-    if (await _networkInfo.isConnected) {
-      try {
-        final result = await _remoteDataSource.getNotes();
-        _localDataSource.cacheNotes(result);
+    try {
+      final result = await _localDataSource.getCachedNotes();
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on CacheException {
+      if (await _networkInfo.isConnected) {
+        try {
+          final result = await _remoteDataSource.getNotes();
+          _localDataSource.cacheNotes(result);
 
-        return Right(result.map((model) => model.toEntity()).toList());
-      } on ServerException {
-        return const Left(ServerFailure(''));
+          return Right(result.map((model) => model.toEntity()).toList());
+        } on ServerException {
+          return const Left(ServerFailure(''));
+        }
+      } else {
+        return const Left(ConnectionFailure(Constants.noNetworkMsg));
       }
-    } else {
-      return const Left(ConnectionFailure(Constants.noNetworkMsg));
     }
   }
 }
