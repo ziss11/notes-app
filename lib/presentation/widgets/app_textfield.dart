@@ -26,6 +26,7 @@ class AppTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         onChanged: onChanged,
+        style: Theme.of(context).textTheme.bodyLarge,
         decoration: InputDecoration(
           isDense: true,
           filled: true,

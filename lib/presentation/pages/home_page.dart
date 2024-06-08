@@ -61,6 +61,7 @@ class _HomePageState extends State<HomePage> {
                 onChanged: _onSearchChanged,
                 prefixIcon: const Icon(
                   Icons.search,
+                  size: 21,
                   color: AppColors.grey,
                 ),
                 suffixIcon: searchController.text.isNotEmpty
