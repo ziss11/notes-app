@@ -10,7 +10,9 @@ import 'package:dio/dio.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i10;
 import 'package:viapulsa_test/common/failures.dart' as _i7;
-import 'package:viapulsa_test/common/network_info.dart' as _i11;
+import 'package:viapulsa_test/common/network_info.dart' as _i12;
+import 'package:viapulsa_test/data/datasources/note_local_datasource.dart'
+    as _i11;
 import 'package:viapulsa_test/data/datasources/note_remote_datasource.dart'
     as _i9;
 import 'package:viapulsa_test/data/models/note_model.dart' as _i3;
@@ -318,10 +320,50 @@ class MockNoteRemoteDataSource extends _i1.Mock
       ) as _i6.Future<String>);
 }
 
+/// A class which mocks [NoteLocalDataSource].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockNoteLocalDataSource extends _i1.Mock
+    implements _i11.NoteLocalDataSource {
+  MockNoteLocalDataSource() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i6.Future<void> cacheNotes(List<_i3.NoteModel>? notes) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #cacheNotes,
+          [notes],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+
+  @override
+  _i6.Future<void> clearCacheNotes() => (super.noSuchMethod(
+        Invocation.method(
+          #clearCacheNotes,
+          [],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+
+  @override
+  _i6.Future<List<_i3.NoteModel>> getCachedNotes() => (super.noSuchMethod(
+        Invocation.method(
+          #getCachedNotes,
+          [],
+        ),
+        returnValue: _i6.Future<List<_i3.NoteModel>>.value(<_i3.NoteModel>[]),
+      ) as _i6.Future<List<_i3.NoteModel>>);
+}
+
 /// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i11.NetworkInfo {
+class MockNetworkInfo extends _i1.Mock implements _i12.NetworkInfo {
   MockNetworkInfo() {
     _i1.throwOnMissingStub(this);
   }

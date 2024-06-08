@@ -3,16 +3,19 @@ import 'package:viapulsa_test/common/constants.dart';
 import 'package:viapulsa_test/common/exceptions.dart';
 import 'package:viapulsa_test/common/failures.dart';
 import 'package:viapulsa_test/common/network_info.dart';
+import 'package:viapulsa_test/data/datasources/note_local_datasource.dart';
 import 'package:viapulsa_test/data/datasources/note_remote_datasource.dart';
 import 'package:viapulsa_test/domain/entities/note.dart';
 import 'package:viapulsa_test/domain/repositories/note_repository.dart';
 
 class NoteRepositoryImpl implements NoteRepository {
   final NoteRemoteDataSource _remoteDataSource;
+  final NoteLocalDataSource _localDataSource;
   final NetworkInfo _networkInfo;
 
   const NoteRepositoryImpl(
     this._remoteDataSource,
+    this._localDataSource,
     this._networkInfo,
   );
 
@@ -84,6 +87,8 @@ class NoteRepositoryImpl implements NoteRepository {
     if (await _networkInfo.isConnected) {
       try {
         final result = await _remoteDataSource.getNotes();
+        _localDataSource.cacheNotes(result);
+
         return Right(result.map((model) => model.toEntity()).toList());
       } on ServerException {
         return const Left(ServerFailure(''));

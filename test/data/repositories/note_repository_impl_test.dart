@@ -12,13 +12,16 @@ import '../../helpers/test_helper.mocks.dart';
 void main() {
   late NoteRepositoryImpl repository;
   late MockNoteRemoteDataSource mockRemoteDataSource;
+  late MockNoteLocalDataSource mockLocalDataSource;
   late MockNetworkInfo mockNetworkInfo;
 
   setUp(() {
     mockRemoteDataSource = MockNoteRemoteDataSource();
+    mockLocalDataSource = MockNoteLocalDataSource();
     mockNetworkInfo = MockNetworkInfo();
     repository = NoteRepositoryImpl(
       mockRemoteDataSource,
+      mockLocalDataSource,
       mockNetworkInfo,
     );
   });
@@ -54,6 +57,19 @@ void main() {
         // assert
         final resultList = result.getOrElse(() => []);
         expect(resultList, tNotes);
+      });
+
+      test(
+          'should cache data locally when the call to remote data source is successful',
+          () async {
+        // arrange
+        when(mockRemoteDataSource.getNotes())
+            .thenAnswer((_) async => tNoteModels);
+        // act
+        await repository.getNotes();
+        // assert
+        verify(mockRemoteDataSource.getNotes());
+        verify(mockLocalDataSource.cacheNotes(tNoteModels));
       });
 
       test(
