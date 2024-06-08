@@ -131,6 +131,24 @@ class MockNoteRepository extends _i1.Mock implements _i5.NoteRepository {
       ) as _i6.Future<_i2.Either<_i7.Failure, List<_i8.Note>>>);
 
   @override
+  _i6.Future<_i2.Either<_i7.Failure, List<_i8.Note>>> searchNotes(
+          String? query) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #searchNotes,
+          [query],
+        ),
+        returnValue: _i6.Future<_i2.Either<_i7.Failure, List<_i8.Note>>>.value(
+            _FakeEither_0<_i7.Failure, List<_i8.Note>>(
+          this,
+          Invocation.method(
+            #searchNotes,
+            [query],
+          ),
+        )),
+      ) as _i6.Future<_i2.Either<_i7.Failure, List<_i8.Note>>>);
+
+  @override
   _i6.Future<_i2.Either<_i7.Failure, _i8.Note>> getNoteById(String? id) =>
       (super.noSuchMethod(
         Invocation.method(

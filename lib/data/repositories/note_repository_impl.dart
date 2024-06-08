@@ -108,4 +108,10 @@ class NoteRepositoryImpl implements NoteRepository {
       }
     }
   }
+
+  @override
+  Future<Either<Failure, List<Note>>> searchNotes(String query) {
+    // TODO: implement searchNotes
+    throw UnimplementedError();
+  }
 }
