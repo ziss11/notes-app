@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:viapulsa_test/common/app_colors.dart';
 import 'package:viapulsa_test/presentation/widgets/app_textfield.dart';
+import 'package:viapulsa_test/presentation/widgets/note_item.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -79,8 +80,16 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
-        body: const Center(
-          child: Text('Hello World!'),
+        body: ListView.separated(
+          itemCount: 5,
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.all(16),
+          separatorBuilder: (context, index) {
+            return const SizedBox(height: 14);
+          },
+          itemBuilder: (context, index) {
+            return const NoteItem();
+          },
         ),
       ),
     );

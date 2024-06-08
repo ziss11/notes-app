@@ -20,6 +20,7 @@ class App extends StatelessWidget {
         scaffoldBackgroundColor: AppColors.black,
         brightness: Brightness.dark,
         appBarTheme: const AppBarTheme(
+          surfaceTintColor: Colors.transparent,
           backgroundColor: AppColors.black,
         ),
       ),
