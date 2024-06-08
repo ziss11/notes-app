@@ -185,6 +185,7 @@ void main() {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       when(mockRemoteDataSource.addNote(tNoteTitle, tNoteDescription))
           .thenAnswer((_) async => Constants.successAddNoteMsg);
+      when(mockLocalDataSource.clearCacheNotes()).thenAnswer((_) async => 1);
       // act
       await repository.addNote(tNoteTitle, tNoteDescription);
       // assert
@@ -202,6 +203,7 @@ void main() {
         // arrange
         when(mockRemoteDataSource.addNote(tNoteTitle, tNoteDescription))
             .thenAnswer((_) async => Constants.successAddNoteMsg);
+        when(mockLocalDataSource.clearCacheNotes()).thenAnswer((_) async => 1);
         // act
         final result = await repository.addNote(tNoteTitle, tNoteDescription);
         // assert
@@ -212,6 +214,7 @@ void main() {
         // arrange
         when(mockRemoteDataSource.addNote(tNoteTitle, tNoteDescription))
             .thenAnswer((_) async => Constants.successAddNoteMsg);
+        when(mockLocalDataSource.clearCacheNotes()).thenAnswer((_) async => 1);
         // act
         await repository.addNote(tNoteTitle, tNoteDescription);
         // assert
@@ -255,6 +258,7 @@ void main() {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       when(mockRemoteDataSource.editNote(tId, tNoteTitle, tNoteDescription))
           .thenAnswer((_) async => Constants.successEditNoteMsg);
+      when(mockLocalDataSource.clearCacheNotes()).thenAnswer((_) async => 1);
       // act
       await repository.editNote(tId, tNoteTitle, tNoteDescription);
       // assert
@@ -272,6 +276,7 @@ void main() {
         // arrange
         when(mockRemoteDataSource.editNote(tId, tNoteTitle, tNoteDescription))
             .thenAnswer((_) async => Constants.successAddNoteMsg);
+        when(mockLocalDataSource.clearCacheNotes()).thenAnswer((_) async => 1);
         // act
         final result =
             await repository.editNote(tId, tNoteTitle, tNoteDescription);
@@ -283,6 +288,7 @@ void main() {
         // arrange
         when(mockRemoteDataSource.editNote(tId, tNoteTitle, tNoteDescription))
             .thenAnswer((_) async => Constants.successAddNoteMsg);
+        when(mockLocalDataSource.clearCacheNotes()).thenAnswer((_) async => 1);
         // act
         await repository.editNote(tId, tNoteTitle, tNoteDescription);
         // assert
@@ -330,6 +336,7 @@ void main() {
       when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
       when(mockRemoteDataSource.deleteNote(tId))
           .thenAnswer((_) async => Constants.successDeleteNoteMsg);
+      when(mockLocalDataSource.clearCacheNotes()).thenAnswer((_) async => 1);
       // act
       await repository.deleteNote(tId);
       // assert
@@ -347,6 +354,7 @@ void main() {
         // arrange
         when(mockRemoteDataSource.deleteNote(tId))
             .thenAnswer((_) async => Constants.successAddNoteMsg);
+        when(mockLocalDataSource.clearCacheNotes()).thenAnswer((_) async => 1);
         // act
         final result = await repository.deleteNote(tId);
         // assert
@@ -357,6 +365,7 @@ void main() {
         // arrange
         when(mockRemoteDataSource.deleteNote(tId))
             .thenAnswer((_) async => Constants.successAddNoteMsg);
+        when(mockLocalDataSource.clearCacheNotes()).thenAnswer((_) async => 1);
         // act
         await repository.deleteNote(tId);
         // assert

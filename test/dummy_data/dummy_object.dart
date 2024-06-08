@@ -21,5 +21,18 @@ final tNoteModel = NoteModel(
 );
 
 final tNoteModels = [tNoteModel];
-
 final tNoteResponseModel = NoteResponse(notes: tNoteModels);
+
+final tCachedNotesMap = [
+  {
+    'id': 'id',
+    'title': 'title',
+    'description': 'description',
+    'createdAt': DateTime(2024).toIso8601String(),
+    'updatedAt': DateTime(2024).toIso8601String(),
+  }
+];
+
+final tCachedNotes = List<dynamic>.from(tCachedNotesMap)
+    .map((e) => NoteModel.fromJson(e))
+    .toList();

@@ -9,8 +9,10 @@ import 'package:dartz/dartz.dart' as _i2;
 import 'package:dio/dio.dart' as _i4;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i10;
+import 'package:sqflite/sqflite.dart' as _i13;
 import 'package:viapulsa_test/common/failures.dart' as _i7;
-import 'package:viapulsa_test/common/network_info.dart' as _i12;
+import 'package:viapulsa_test/common/network_info.dart' as _i14;
+import 'package:viapulsa_test/data/datasources/db/database_helper.dart' as _i12;
 import 'package:viapulsa_test/data/datasources/note_local_datasource.dart'
     as _i11;
 import 'package:viapulsa_test/data/datasources/note_remote_datasource.dart'
@@ -341,14 +343,13 @@ class MockNoteLocalDataSource extends _i1.Mock
       ) as _i6.Future<void>);
 
   @override
-  _i6.Future<void> clearCacheNotes() => (super.noSuchMethod(
+  _i6.Future<int> clearCacheNotes() => (super.noSuchMethod(
         Invocation.method(
           #clearCacheNotes,
           [],
         ),
-        returnValue: _i6.Future<void>.value(),
-        returnValueForMissingStub: _i6.Future<void>.value(),
-      ) as _i6.Future<void>);
+        returnValue: _i6.Future<int>.value(0),
+      ) as _i6.Future<int>);
 
   @override
   _i6.Future<List<_i3.NoteModel>> getCachedNotes() => (super.noSuchMethod(
@@ -360,10 +361,56 @@ class MockNoteLocalDataSource extends _i1.Mock
       ) as _i6.Future<List<_i3.NoteModel>>);
 }
 
+/// A class which mocks [DatabaseHelper].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockDatabaseHelper extends _i1.Mock implements _i12.DatabaseHelper {
+  MockDatabaseHelper() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i6.Future<_i13.Database?> get database => (super.noSuchMethod(
+        Invocation.getter(#database),
+        returnValue: _i6.Future<_i13.Database?>.value(),
+      ) as _i6.Future<_i13.Database?>);
+
+  @override
+  _i6.Future<void> insertCacheTransaction(List<_i3.NoteModel>? notes) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #insertCacheTransaction,
+          [notes],
+        ),
+        returnValue: _i6.Future<void>.value(),
+        returnValueForMissingStub: _i6.Future<void>.value(),
+      ) as _i6.Future<void>);
+
+  @override
+  _i6.Future<List<Map<String, dynamic>>> getCachedNotes() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getCachedNotes,
+          [],
+        ),
+        returnValue: _i6.Future<List<Map<String, dynamic>>>.value(
+            <Map<String, dynamic>>[]),
+      ) as _i6.Future<List<Map<String, dynamic>>>);
+
+  @override
+  _i6.Future<int> clearCache() => (super.noSuchMethod(
+        Invocation.method(
+          #clearCache,
+          [],
+        ),
+        returnValue: _i6.Future<int>.value(0),
+      ) as _i6.Future<int>);
+}
+
 /// A class which mocks [NetworkInfo].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockNetworkInfo extends _i1.Mock implements _i12.NetworkInfo {
+class MockNetworkInfo extends _i1.Mock implements _i14.NetworkInfo {
   MockNetworkInfo() {
     _i1.throwOnMissingStub(this);
   }
