@@ -8,7 +8,7 @@ import 'package:viapulsa_test/common/failures.dart';
 import 'package:viapulsa_test/domain/usecases/add_note.dart';
 import 'package:viapulsa_test/presentation/cubit/add_note_cubit.dart';
 
-import 'add_notes_cubit_test.mocks.dart';
+import 'add_note_cubit_test.mocks.dart';
 
 @GenerateMocks([AddNote])
 void main() {
