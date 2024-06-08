@@ -80,10 +80,17 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: const Icon(Icons.add),
+        ),
         body: ListView.separated(
           itemCount: 5,
           physics: const BouncingScrollPhysics(),
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.fromLTRB(16, 16, 16, 100),
           separatorBuilder: (context, index) {
             return const SizedBox(height: 14);
           },

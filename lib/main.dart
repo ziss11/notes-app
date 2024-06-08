@@ -23,6 +23,10 @@ class App extends StatelessWidget {
           surfaceTintColor: Colors.transparent,
           backgroundColor: AppColors.black,
         ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: AppColors.purpleBlue,
+          elevation: 0,
+        ),
       ),
       home: const HomePage(),
     );
