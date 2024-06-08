@@ -257,6 +257,16 @@ class MockNoteRemoteDataSource extends _i1.Mock
       ) as _i6.Future<List<_i3.NoteModel>>);
 
   @override
+  _i6.Future<List<_i3.NoteModel>> searchNotes(String? query) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #searchNotes,
+          [query],
+        ),
+        returnValue: _i6.Future<List<_i3.NoteModel>>.value(<_i3.NoteModel>[]),
+      ) as _i6.Future<List<_i3.NoteModel>>);
+
+  @override
   _i6.Future<_i3.NoteModel> getNoteById(String? id) => (super.noSuchMethod(
         Invocation.method(
           #getNoteById,

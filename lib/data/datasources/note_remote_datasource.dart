@@ -8,6 +8,7 @@ import 'package:viapulsa_test/data/models/note_response.dart';
 
 abstract class NoteRemoteDataSource {
   Future<List<NoteModel>> getNotes();
+  Future<List<NoteModel>> searchNotes(String query);
   Future<NoteModel> getNoteById(String id);
   Future<String> addNote(String title, String description);
   Future<String> editNote(String id, String title, String description);
@@ -89,5 +90,11 @@ class NoteRemoteDataSourceImpl implements NoteRemoteDataSource {
     } else {
       throw ServerException();
     }
+  }
+
+  @override
+  Future<List<NoteModel>> searchNotes(String query) {
+    // TODO: implement searchNotes
+    throw UnimplementedError();
   }
 }

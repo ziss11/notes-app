@@ -110,8 +110,16 @@ class NoteRepositoryImpl implements NoteRepository {
   }
 
   @override
-  Future<Either<Failure, List<Note>>> searchNotes(String query) {
-    // TODO: implement searchNotes
-    throw UnimplementedError();
+  Future<Either<Failure, List<Note>>> searchNotes(String query) async {
+    if (await _networkInfo.isConnected) {
+      try {
+        final result = await _remoteDataSource.searchNotes(query);
+        return Right(result.map((model) => model.toEntity()).toList());
+      } on ServerException {
+        return const Left(ServerFailure(''));
+      }
+    } else {
+      return const Left(ConnectionFailure(Constants.noNetworkMsg));
+    }
   }
 }

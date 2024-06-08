@@ -120,6 +120,68 @@ void main() {
     });
   });
 
+  group('Search Notes', () {
+    const tQuery = 'query';
+
+    test('should check if the device is online', () async {
+      // arrange
+      when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      when(mockRemoteDataSource.searchNotes(tQuery))
+          .thenAnswer((_) async => []);
+      // act
+      await repository.searchNotes(tQuery);
+      // assert
+      verify(mockNetworkInfo.isConnected);
+    });
+
+    group('when the device is online', () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
+      });
+
+      test(
+          'should return remote data when the call to remote data source is successful',
+          () async {
+        // arrange
+        when(mockRemoteDataSource.searchNotes(tQuery))
+            .thenAnswer((_) async => tNoteModels);
+        // act
+        final result = await repository.searchNotes(tQuery);
+        // assert
+        final resultList = result.getOrElse(() => []);
+        expect(resultList, tNotes);
+      });
+
+      test(
+          'should return server failure when the call to remote data source is unsuccessful',
+          () async {
+        // arrange
+        when(mockRemoteDataSource.searchNotes(tQuery))
+            .thenThrow(ServerException());
+        // act
+        final result = await repository.searchNotes(tQuery);
+        // assert
+        verify(mockRemoteDataSource.searchNotes(tQuery));
+        expect(result, const Left(ServerFailure('')));
+      });
+    });
+
+    group('when the device is offline', () {
+      setUp(() {
+        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+      });
+
+      test(
+          'should return connetion failure when the device not connected to internet',
+          () async {
+        // act
+        final result = await repository.searchNotes(tQuery);
+        // assert
+        expect(result, const Left(ConnectionFailure(Constants.noNetworkMsg)));
+      });
+    });
+  });
+
   group('Get Note By Id', () {
     test('should check if the device is online', () async {
       // arrange
