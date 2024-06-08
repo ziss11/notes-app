@@ -16,7 +16,13 @@ class SearchNotesCubit extends Cubit<SearchNotesState> {
     final result = await _searchNotes.execute(query);
     result.fold(
       (failure) => emit(SearchNotesFailed(message: failure.message)),
-      (notes) => emit(SearchNotesLoaded(notes: notes)),
+      (data) {
+        if (data.isNotEmpty) {
+          emit(SearchNotesLoaded(notes: data));
+        } else {
+          emit(SearchNotesInitial());
+        }
+      },
     );
   }
 }

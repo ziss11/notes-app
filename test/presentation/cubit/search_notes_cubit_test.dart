@@ -39,6 +39,20 @@ void main() {
     );
 
     blocTest<SearchNotesCubit, SearchNotesState>(
+      'should emits [Loading, Initial] when data is Empty',
+      build: () {
+        when(mockSearchNotes.execute(tQuery))
+            .thenAnswer((_) async => const Right([]));
+        return cubit;
+      },
+      act: (cubit) => cubit.searchNotes(tQuery),
+      expect: () => [
+        SearchNotesLoading(),
+        SearchNotesInitial(),
+      ],
+    );
+
+    blocTest<SearchNotesCubit, SearchNotesState>(
       'should emits [Loading, Loaded] when data is gotten successfully',
       build: () {
         when(mockSearchNotes.execute(tQuery))

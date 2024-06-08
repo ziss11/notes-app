@@ -36,6 +36,19 @@ void main() {
     );
 
     blocTest<NotesCubit, NotesState>(
+      'should emits [Loading, Initial] when data is Empty',
+      build: () {
+        when(mockGetNotes.execute()).thenAnswer((_) async => const Right([]));
+        return cubit;
+      },
+      act: (cubit) => cubit.fetchNotes(),
+      expect: () => [
+        AllNotesLoading(),
+        AllNotesInitial(),
+      ],
+    );
+
+    blocTest<NotesCubit, NotesState>(
       'should emits [Loading, Loaded] when data is gotten successfully',
       build: () {
         when(mockGetNotes.execute()).thenAnswer((_) async => Right(tNotes));

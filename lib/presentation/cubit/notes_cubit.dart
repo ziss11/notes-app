@@ -16,7 +16,13 @@ class NotesCubit extends Cubit<NotesState> {
     final result = await _getNotes.execute();
     result.fold(
       (failure) => emit(AllNotesFailed(message: failure.message)),
-      (data) => emit(AllNotesLoaded(notes: data)),
+      (data) {
+        if (data.isNotEmpty) {
+          emit(AllNotesLoaded(notes: data));
+        } else {
+          emit(AllNotesInitial());
+        }
+      },
     );
   }
 }
