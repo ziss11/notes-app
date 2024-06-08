@@ -64,6 +64,51 @@ void main() {
     });
   });
 
+  group('Search Notes', () {
+    const tQuery = 'query';
+    final tSearchedNotesResponse =
+        NoteResponse.fromJson(jsonDecode(readJson('dummy_data/notes.json')))
+            .notes;
+
+    test('should return searched list of notes when the response code is 200',
+        () async {
+      // arrange
+      when(mockDio.get(
+        '${dotenv.env['API_URL']}/notes',
+        queryParameters: {'query': tQuery},
+      )).thenAnswer(
+        (_) async => Response(
+          requestOptions: RequestOptions(),
+          statusCode: 200,
+          data: readJson('dummy_data/notes.json'),
+        ),
+      );
+      // act
+      final result = await remoteDataSource.searchNotes(tQuery);
+      // assert
+      expect(result, tSearchedNotesResponse);
+    });
+
+    test('should throw a server exception when the response code is 404',
+        () async {
+      // arrange
+      when(mockDio.get(
+        '${dotenv.env['API_URL']}/notes',
+        queryParameters: {'query': tQuery},
+      )).thenAnswer(
+        (_) async => Response(
+          requestOptions: RequestOptions(),
+          statusCode: 404,
+          data: 'Not Found',
+        ),
+      );
+      // act
+      final result = remoteDataSource.searchNotes(tQuery);
+      // assert
+      expect(result, throwsA(isA<ServerException>()));
+    });
+  });
+
   group('Get Note By Id', () {
     final tNoteResponse = NoteModel.fromJson(
         jsonDecode(readJson('dummy_data/note_by_id.json'))['data']);

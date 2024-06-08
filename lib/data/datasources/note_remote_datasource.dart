@@ -93,8 +93,17 @@ class NoteRemoteDataSourceImpl implements NoteRemoteDataSource {
   }
 
   @override
-  Future<List<NoteModel>> searchNotes(String query) {
-    // TODO: implement searchNotes
-    throw UnimplementedError();
+  Future<List<NoteModel>> searchNotes(String query) async {
+    final response = await _dio.get(
+      '${dotenv.env['API_URL']}/notes',
+      queryParameters: {'query': query},
+    );
+
+    if (response.statusCode == 200) {
+      final result = NoteResponse.fromJson(jsonDecode(response.data)).notes;
+      return result;
+    } else {
+      throw ServerException();
+    }
   }
 }
