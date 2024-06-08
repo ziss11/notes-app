@@ -10,9 +10,7 @@ import 'package:viapulsa_test/presentation/cubit/notes_cubit.dart';
 import '../../dummy_data/dummy_object.dart';
 import 'notes_cubit_test.mocks.dart';
 
-@GenerateMocks([
-  GetNotes,
-])
+@GenerateMocks([GetNotes])
 void main() {
   late NotesCubit cubit;
   late MockGetNotes mockGetNotes;
@@ -22,7 +20,7 @@ void main() {
     cubit = NotesCubit(mockGetNotes);
   });
 
-  group('All Notes', () {
+  group('All Notes Cubit', () {
     test('initialState should be Empty', () {
       expect(cubit.state, AllNotesInitial());
     });
@@ -38,7 +36,7 @@ void main() {
     );
 
     blocTest<NotesCubit, NotesState>(
-      'should emits [Loading, Loaded] when is gotten successfully',
+      'should emits [Loading, Loaded] when data is gotten successfully',
       build: () {
         when(mockGetNotes.execute()).thenAnswer((_) async => Right(tNotes));
         return cubit;
@@ -51,7 +49,7 @@ void main() {
     );
 
     blocTest<NotesCubit, NotesState>(
-      'should emits [Loading, Failed] when is gotten successfully',
+      'should emits [Loading, Failed] when data is gotten successfully',
       build: () {
         when(mockGetNotes.execute())
             .thenAnswer((_) async => const Left(ServerFailure('Server Error')));
