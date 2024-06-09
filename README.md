@@ -1,6 +1,6 @@
 # Notes App
 
-[Brief description of the project]
+This is a small project that I create using Flutter for Android and iOS platform to manage your notes.
 
 ## Table of Contents
 
