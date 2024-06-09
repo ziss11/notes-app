@@ -98,7 +98,9 @@ class _HomePageState extends State<HomePage> {
             builder: (context, state) {
               if (state is AllNotesLoading) {
                 return const FillRemainingLayout(
-                  child: CircularProgressIndicator(),
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 );
               } else if (state is AllNotesLoaded) {
                 return RefreshIndicator.adaptive(
@@ -127,16 +129,20 @@ class _HomePageState extends State<HomePage> {
                 );
               } else if (state is AllNotesFailed) {
                 return FillRemainingLayout(
-                  child: Text(
-                    state.message,
-                    style: Theme.of(context).textTheme.bodyMedium,
+                  child: Center(
+                    child: Text(
+                      state.message,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                   ),
                 );
               } else if (state is AllNotesInitial) {
                 return FillRemainingLayout(
-                  child: Text(
-                    'No Notes',
-                    style: Theme.of(context).textTheme.bodyMedium,
+                  child: Center(
+                    child: Text(
+                      'Tidak ada Note',
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                   ),
                 );
               }
