@@ -76,20 +76,6 @@ class NoteRepositoryImpl implements NoteRepository {
   }
 
   @override
-  Future<Either<Failure, Note>> getNoteById(String id) async {
-    if (await _networkInfo.isConnected) {
-      try {
-        final result = await _remoteDataSource.getNoteById(id);
-        return Right(result.toEntity());
-      } on ServerException {
-        return const Left(ServerFailure(''));
-      }
-    } else {
-      return const Left(ConnectionFailure(Constants.noNetworkMsg));
-    }
-  }
-
-  @override
   Future<Either<Failure, List<Note>>> getNotes() async {
     try {
       debugPrint('local');

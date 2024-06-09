@@ -182,65 +182,6 @@ void main() {
     });
   });
 
-  group('Get Note By Id', () {
-    test('should check if the device is online', () async {
-      // arrange
-      when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-      when(mockRemoteDataSource.getNoteById(tId))
-          .thenAnswer((_) async => tNoteModel);
-      // act
-      await repository.getNoteById(tId);
-      // assert
-      verify(mockNetworkInfo.isConnected);
-    });
-
-    group('when the device is online', () {
-      setUp(() {
-        when(mockNetworkInfo.isConnected).thenAnswer((_) async => true);
-      });
-
-      test(
-          'should return remote data when the call to remote data source is successful',
-          () async {
-        // arrange
-        when(mockRemoteDataSource.getNoteById(tId))
-            .thenAnswer((_) async => tNoteModel);
-        // act
-        final result = await repository.getNoteById(tId);
-        // assert
-        expect(result, Right(tNote));
-      });
-
-      test(
-          'should return server failure when the call to remote data source is unsuccessful',
-          () async {
-        // arrange
-        when(mockRemoteDataSource.getNoteById(tId))
-            .thenThrow(ServerException());
-        // act
-        final result = await repository.getNoteById(tId);
-        // assert
-        verify(mockRemoteDataSource.getNoteById(tId));
-        expect(result, const Left(ServerFailure('')));
-      });
-    });
-
-    group('when the device is offline', () {
-      setUp(() {
-        when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
-      });
-
-      test(
-          'should return connetion failure when the device not connected to internet',
-          () async {
-        // act
-        final result = await repository.getNoteById(tId);
-        // assert
-        expect(result, const Left(ConnectionFailure(Constants.noNetworkMsg)));
-      });
-    });
-  });
-
   group('Add Note', () {
     test('should check if the device is online', () async {
       // arrange

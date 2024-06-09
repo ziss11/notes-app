@@ -10,13 +10,11 @@ import 'package:viapulsa_test/domain/repositories/note_repository.dart';
 import 'package:viapulsa_test/domain/usecases/add_note.dart';
 import 'package:viapulsa_test/domain/usecases/delete_note.dart';
 import 'package:viapulsa_test/domain/usecases/edit_note.dart';
-import 'package:viapulsa_test/domain/usecases/get_note_by_id.dart';
 import 'package:viapulsa_test/domain/usecases/get_notes.dart';
 import 'package:viapulsa_test/domain/usecases/search_notes.dart';
 import 'package:viapulsa_test/presentation/cubit/add_note_cubit.dart';
 import 'package:viapulsa_test/presentation/cubit/delete_note_cubit.dart';
 import 'package:viapulsa_test/presentation/cubit/edit_note_cubit.dart';
-import 'package:viapulsa_test/presentation/cubit/note_detail_cubit.dart';
 import 'package:viapulsa_test/presentation/cubit/notes_cubit.dart';
 import 'package:viapulsa_test/presentation/cubit/search_notes_cubit.dart';
 
@@ -26,7 +24,6 @@ class Injection {
   static void init() {
     // Cubit
     GetIt.I.registerFactory<NotesCubit>(() => NotesCubit(GetIt.I()));
-    GetIt.I.registerFactory<NoteDetailCubit>(() => NoteDetailCubit(GetIt.I()));
     GetIt.I
         .registerFactory<SearchNotesCubit>(() => SearchNotesCubit(GetIt.I()));
     GetIt.I.registerFactory<AddNoteCubit>(() => AddNoteCubit(GetIt.I()));
@@ -35,7 +32,6 @@ class Injection {
 
     // Use Cases
     GetIt.I.registerLazySingleton<GetNotes>(() => GetNotes(GetIt.I()));
-    GetIt.I.registerLazySingleton<GetNoteById>(() => GetNoteById(GetIt.I()));
     GetIt.I.registerLazySingleton<SearchNotes>(() => SearchNotes(GetIt.I()));
     GetIt.I.registerLazySingleton<AddNote>(() => AddNote(GetIt.I()));
     GetIt.I.registerLazySingleton<EditNote>(() => EditNote(GetIt.I()));

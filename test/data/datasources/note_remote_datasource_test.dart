@@ -6,7 +6,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:viapulsa_test/common/exceptions.dart';
 import 'package:viapulsa_test/data/datasources/note_remote_datasource.dart';
-import 'package:viapulsa_test/data/models/note_model.dart';
 import 'package:viapulsa_test/data/models/note_response.dart';
 
 import '../../helpers/test_helper.mocks.dart';
@@ -104,42 +103,6 @@ void main() {
       );
       // act
       final result = remoteDataSource.searchNotes(tQuery);
-      // assert
-      expect(result, throwsA(isA<ServerException>()));
-    });
-  });
-
-  group('Get Note By Id', () {
-    final tNoteResponse = NoteModel.fromJson(
-        jsonDecode(readJson('dummy_data/note_by_id.json'))['data']);
-
-    test('should return selected note when the response code is 200', () async {
-      // arrange
-      when(mockDio.get('${dotenv.env['API_URL']}/notes/$tId')).thenAnswer(
-        (_) async => Response(
-          requestOptions: RequestOptions(),
-          statusCode: 200,
-          data: jsonDecode(readJson('dummy_data/note_by_id.json')),
-        ),
-      );
-      // act
-      final result = await remoteDataSource.getNoteById(tId);
-      // assert
-      expect(result, tNoteResponse);
-    });
-
-    test('should throw a server exception when the response code is 404',
-        () async {
-      // arrange
-      when(mockDio.get('${dotenv.env['API_URL']}/notes/$tId')).thenAnswer(
-        (_) async => Response(
-          requestOptions: RequestOptions(),
-          statusCode: 404,
-          data: 'Not Found',
-        ),
-      );
-      // act
-      final result = remoteDataSource.getNoteById(tId);
       // assert
       expect(result, throwsA(isA<ServerException>()));
     });

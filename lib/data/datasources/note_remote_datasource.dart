@@ -7,7 +7,6 @@ import 'package:viapulsa_test/data/models/note_response.dart';
 abstract class NoteRemoteDataSource {
   Future<List<NoteModel>> getNotes();
   Future<List<NoteModel>> searchNotes(String query);
-  Future<NoteModel> getNoteById(String id);
   Future<String> addNote(String title, String description);
   Future<String> editNote(String id, String title, String description);
   Future<String> deleteNote(String id);
@@ -60,18 +59,6 @@ class NoteRemoteDataSourceImpl implements NoteRemoteDataSource {
 
     if (response.statusCode == 200) {
       final result = response.data['message'] as String;
-      return result;
-    } else {
-      throw ServerException();
-    }
-  }
-
-  @override
-  Future<NoteModel> getNoteById(String id) async {
-    final response = await _dio.get('${dotenv.env['API_URL']}/notes/$id');
-
-    if (response.statusCode == 200) {
-      final result = NoteModel.fromJson(response.data['data']);
       return result;
     } else {
       throw ServerException();

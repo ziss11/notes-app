@@ -8,7 +8,6 @@ import 'package:viapulsa_test/injection.dart';
 import 'package:viapulsa_test/presentation/cubit/add_note_cubit.dart';
 import 'package:viapulsa_test/presentation/cubit/delete_note_cubit.dart';
 import 'package:viapulsa_test/presentation/cubit/edit_note_cubit.dart';
-import 'package:viapulsa_test/presentation/cubit/note_detail_cubit.dart';
 import 'package:viapulsa_test/presentation/cubit/notes_cubit.dart';
 import 'package:viapulsa_test/presentation/cubit/search_notes_cubit.dart';
 
@@ -27,7 +26,6 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => GetIt.I<NotesCubit>()),
-        BlocProvider(create: (_) => GetIt.I<NoteDetailCubit>()),
         BlocProvider(create: (_) => GetIt.I<SearchNotesCubit>()),
         BlocProvider(create: (_) => GetIt.I<AddNoteCubit>()),
         BlocProvider(create: (_) => GetIt.I<EditNoteCubit>()),
