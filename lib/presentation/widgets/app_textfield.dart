@@ -8,6 +8,7 @@ class AppTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final bool enabled;
+  final FocusNode? focusNode;
   final void Function(String value)? onChanged;
 
   const AppTextField({
@@ -15,6 +16,7 @@ class AppTextField extends StatelessWidget {
     this.height = 40,
     this.hintText,
     this.controller,
+    this.focusNode,
     this.prefixIcon,
     this.suffixIcon,
     this.enabled = true,
@@ -26,6 +28,7 @@ class AppTextField extends StatelessWidget {
     return SizedBox(
       height: height,
       child: TextFormField(
+        focusNode: focusNode,
         enabled: enabled,
         controller: controller,
         onChanged: onChanged,

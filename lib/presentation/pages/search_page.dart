@@ -24,6 +24,7 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   Timer? debounce;
+  late final FocusNode focusNode;
   late final TextEditingController searchController;
 
   void _onSearchChanged(String query) {
@@ -38,7 +39,9 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void initState() {
+    focusNode = FocusNode()..requestFocus();
     searchController = TextEditingController();
+
     super.initState();
   }
 
@@ -60,6 +63,7 @@ class _SearchPageState extends State<SearchPage> {
             children: [
               Expanded(
                 child: AppTextField(
+                  focusNode: focusNode,
                   hintText: 'Search Here',
                   controller: searchController,
                   onChanged: _onSearchChanged,

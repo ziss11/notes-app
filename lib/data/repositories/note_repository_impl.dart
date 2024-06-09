@@ -1,5 +1,4 @@
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
 import 'package:viapulsa_test/common/constants.dart';
 import 'package:viapulsa_test/common/exceptions.dart';
 import 'package:viapulsa_test/common/failures.dart';
@@ -78,11 +77,9 @@ class NoteRepositoryImpl implements NoteRepository {
   @override
   Future<Either<Failure, List<Note>>> getNotes() async {
     try {
-      debugPrint('local');
       final result = await _localDataSource.getCachedNotes();
       return Right(result.map((model) => model.toEntity()).toList());
     } on CacheException {
-      debugPrint('remote');
       if (await _networkInfo.isConnected) {
         try {
           final result = await _remoteDataSource.getNotes();
