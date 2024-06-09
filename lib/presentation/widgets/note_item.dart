@@ -7,7 +7,7 @@ import 'package:viapulsa_test/domain/entities/note.dart';
 class NoteItem extends StatelessWidget {
   final Note note;
   final void Function() onTap;
-  final void Function(BuildContext)? onDelete;
+  final void Function(BuildContext context)? onDelete;
 
   const NoteItem({
     super.key,
@@ -75,7 +75,7 @@ class NoteItem extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (note.updatedAt == DateTime.now()) ...[
+                    if (note.updatedAt.minute == DateTime.now().minute) ...[
                       Container(
                         width: 5,
                         height: 5,

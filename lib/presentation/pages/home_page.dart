@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 import 'package:viapulsa_test/common/app_colors.dart';
+import 'package:viapulsa_test/presentation/cubit/delete_note_cubit.dart';
 import 'package:viapulsa_test/presentation/cubit/notes_cubit.dart';
 import 'package:viapulsa_test/presentation/pages/create_note_page.dart';
 import 'package:viapulsa_test/presentation/pages/note_detail_page.dart';
@@ -118,11 +119,24 @@ class _HomePageState extends State<HomePage> {
                     },
                     itemBuilder: (context, index) {
                       final note = state.notes[index];
-                      return NoteItem(
-                        note: note,
-                        onTap: () {
-                          context.pushNamed(NoteDetailPage.route);
+                      return BlocListener<DeleteNoteCubit, DeleteNoteState>(
+                        listener: (context, state) {
+                          if (state is DeleteNoteSuccess) {
+                            context.read<NotesCubit>().fetchNotes();
+                          }
                         },
+                        child: NoteItem(
+                          note: note,
+                          onDelete: (_) {
+                            context.read<DeleteNoteCubit>().deleteNote(note.id);
+                          },
+                          onTap: () {
+                            context.pushNamed(
+                              NoteDetailPage.route,
+                              extra: note,
+                            );
+                          },
+                        ),
                       );
                     },
                   ),

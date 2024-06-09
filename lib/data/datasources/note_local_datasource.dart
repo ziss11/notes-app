@@ -15,7 +15,6 @@ class NoteLocalDataSourceImpl implements NoteLocalDataSource {
 
   @override
   Future<void> cacheNotes(List<NoteModel> notes) async {
-    await _databaseHelper.clearCache();
     await _databaseHelper.insertCacheTransaction(notes);
   }
 

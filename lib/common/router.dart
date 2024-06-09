@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:viapulsa_test/domain/entities/note.dart';
 import 'package:viapulsa_test/presentation/pages/create_note_page.dart';
 import 'package:viapulsa_test/presentation/pages/home_page.dart';
 import 'package:viapulsa_test/presentation/pages/note_detail_page.dart';
@@ -20,7 +21,10 @@ final router = GoRouter(
     GoRoute(
       path: NoteDetailPage.path,
       name: NoteDetailPage.route,
-      builder: (context, state) => const NoteDetailPage(),
+      builder: (context, state) {
+        final note = state.extra as Note;
+        return NoteDetailPage(note: note);
+      },
     ),
     GoRoute(
       path: SearchPage.path,

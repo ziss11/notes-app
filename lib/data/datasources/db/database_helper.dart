@@ -47,7 +47,11 @@ class DatabaseHelper {
   Future<void> insertCacheTransaction(List<NoteModel> notes) async {
     final db = await database;
     for (var note in notes) {
-      await db!.insert(_tblCache, note.toJson());
+      await db!.insert(
+        _tblCache,
+        note.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.replace,
+      );
     }
   }
 
@@ -59,6 +63,10 @@ class DatabaseHelper {
 
   Future<int> clearCache() async {
     final db = await database;
-    return await db!.delete(_tblCache);
+    return await db!.delete(
+      _tblCache,
+      where: null,
+      whereArgs: null,
+    );
   }
 }

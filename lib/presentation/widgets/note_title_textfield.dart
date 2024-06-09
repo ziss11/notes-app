@@ -5,17 +5,20 @@ class NoteTitleTextField extends StatelessWidget {
   final String? initialValue;
   final TextEditingController? controller;
   final void Function(String value)? onChanged;
+  final String? Function(String? value)? validator;
 
   const NoteTitleTextField({
     super.key,
     this.initialValue,
     this.controller,
     this.onChanged,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      validator: validator,
       initialValue: initialValue,
       controller: controller,
       onChanged: onChanged,
@@ -24,6 +27,7 @@ class NoteTitleTextField extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
       decoration: InputDecoration(
+        isDense: true,
         hintText: 'Title',
         hintStyle: Theme.of(context).textTheme.titleLarge?.copyWith(
               color: AppColors.grey,

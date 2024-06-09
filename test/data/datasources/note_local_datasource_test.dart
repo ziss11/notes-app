@@ -27,12 +27,9 @@ void main() {
     });
 
     test('should insert list of cached notes to database', () async {
-      // arrange
-      when(mockDatabaseHelper.clearCache()).thenAnswer((_) async => 1);
       // act
       await localDataSource.cacheNotes(tNoteModels);
       // assert
-      verify(mockDatabaseHelper.clearCache());
       verify(mockDatabaseHelper.insertCacheTransaction(tNoteModels));
     });
 

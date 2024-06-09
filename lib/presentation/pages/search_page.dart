@@ -105,56 +105,61 @@ class _SearchPageState extends State<SearchPage> {
         body: SafeArea(
           child: BlocBuilder<SearchNotesCubit, SearchNotesState>(
             builder: (context, state) {
-              if (state is SearchNotesLoading) {
-                return const FillRemainingLayout(
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              } else if (state is SearchNotesLoaded) {
-                return RefreshIndicator.adaptive(
-                  onRefresh: () async {
-                    context.read<NotesCubit>().fetchNotes();
-                  },
-                  child: ListView.separated(
-                    itemCount: state.notes.length,
-                    physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics(),
+              if (searchController.text.isNotEmpty) {
+                if (state is SearchNotesLoading) {
+                  return const FillRemainingLayout(
+                    child: Center(
+                      child: CircularProgressIndicator(),
                     ),
-                    padding: const EdgeInsets.all(16),
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(height: 14);
+                  );
+                } else if (state is SearchNotesLoaded) {
+                  return RefreshIndicator.adaptive(
+                    onRefresh: () async {
+                      context.read<NotesCubit>().fetchNotes();
                     },
-                    itemBuilder: (context, index) {
-                      final note = state.notes[index];
-                      return NoteItem(
-                        note: note,
-                        onTap: () {
-                          context.pushNamed(NoteDetailPage.route);
-                        },
-                      );
-                    },
-                  ),
-                );
-              } else if (state is SearchNotesFailed) {
-                return FillRemainingLayout(
-                  child: Center(
-                    child: Text(
-                      state.message,
-                      style: Theme.of(context).textTheme.bodyMedium,
+                    child: ListView.separated(
+                      itemCount: state.notes.length,
+                      physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics(),
+                      ),
+                      padding: const EdgeInsets.all(16),
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: 14);
+                      },
+                      itemBuilder: (context, index) {
+                        final note = state.notes[index];
+                        return NoteItem(
+                          note: note,
+                          onTap: () {
+                            context.pushNamed(
+                              NoteDetailPage.route,
+                              extra: note,
+                            );
+                          },
+                        );
+                      },
                     ),
-                  ),
-                );
-              } else if (state is SearchNotesInitial &&
-                  searchController.text.isNotEmpty) {
-                return FillRemainingLayout(
-                  child: Center(
-                    child: Text(
-                      'Note tidak ditemukan',
-                      style: Theme.of(context).textTheme.bodyMedium,
+                  );
+                } else if (state is SearchNotesFailed) {
+                  return FillRemainingLayout(
+                    child: Center(
+                      child: Text(
+                        state.message,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
                     ),
-                  ),
-                );
+                  );
+                } else if (state is SearchNotesInitial) {
+                  return FillRemainingLayout(
+                    child: Center(
+                      child: Text(
+                        'Note tidak ditemukan',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ),
+                  );
+                }
+                return const SizedBox();
               }
               return const SizedBox();
             },
