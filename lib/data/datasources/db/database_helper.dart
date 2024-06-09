@@ -21,13 +21,13 @@ class DatabaseHelper {
 
   void _onCreate(Database db, int version) async {
     await db.execute(
-      '''CREATE TABLE $_tblCache(
+      '''CREATE TABLE $_tblCache (
         id TEXT PRIMARY KEY,
         title TEXT,
         description TEXT,
         createdAt TEXT,
-        updatedAt TEXT,
-      )''',
+        updatedAt TEXT
+      );''',
     );
   }
 

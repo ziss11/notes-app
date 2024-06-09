@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:viapulsa_test/common/app_colors.dart';
+import 'package:viapulsa_test/common/extentions.dart';
+import 'package:viapulsa_test/domain/entities/note.dart';
 
 class NoteItem extends StatelessWidget {
+  final Note note;
   final void Function() onTap;
   final void Function(BuildContext)? onDelete;
 
   const NoteItem({
     super.key,
+    required this.note,
     required this.onTap,
     this.onDelete,
   });
@@ -47,12 +51,12 @@ class NoteItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Task Management App UI Design',
+                          note.title,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         const SizedBox(height: 11),
                         Text(
-                          'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used.',
+                          note.description,
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                           style:
@@ -71,17 +75,19 @@ class NoteItem extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
-                      width: 5,
-                      height: 5,
-                      decoration: BoxDecoration(
-                        color: AppColors.green,
-                        borderRadius: BorderRadius.circular(50),
+                    if (note.updatedAt == DateTime.now()) ...[
+                      Container(
+                        width: 5,
+                        height: 5,
+                        decoration: BoxDecoration(
+                          color: AppColors.green,
+                          borderRadius: BorderRadius.circular(50),
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 5),
+                      const SizedBox(width: 5),
+                    ],
                     Text(
-                      'Just Now',
+                      note.updatedAt.timeAgo(),
                       style: Theme.of(context).textTheme.labelMedium?.copyWith(
                             color: AppColors.grey,
                             letterSpacing: 0,

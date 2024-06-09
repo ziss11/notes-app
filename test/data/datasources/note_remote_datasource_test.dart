@@ -38,7 +38,7 @@ void main() {
         (_) async => Response(
           requestOptions: RequestOptions(),
           statusCode: 200,
-          data: readJson('dummy_data/notes.json'),
+          data: jsonDecode(readJson('dummy_data/notes.json')),
         ),
       );
       // act
@@ -80,7 +80,7 @@ void main() {
         (_) async => Response(
           requestOptions: RequestOptions(),
           statusCode: 200,
-          data: readJson('dummy_data/notes.json'),
+          data: jsonDecode(readJson('dummy_data/notes.json')),
         ),
       );
       // act
@@ -119,7 +119,7 @@ void main() {
         (_) async => Response(
           requestOptions: RequestOptions(),
           statusCode: 200,
-          data: readJson('dummy_data/note_by_id.json'),
+          data: jsonDecode(readJson('dummy_data/note_by_id.json')),
         ),
       );
       // act
@@ -159,7 +159,7 @@ void main() {
         (_) async => Response(
           requestOptions: RequestOptions(),
           statusCode: 201,
-          data: readJson('dummy_data/add_note.json'),
+          data: jsonDecode(readJson('dummy_data/add_note.json')),
         ),
       );
       // act
@@ -203,7 +203,7 @@ void main() {
         (_) async => Response(
           requestOptions: RequestOptions(),
           statusCode: 200,
-          data: readJson('dummy_data/edit_note.json'),
+          data: jsonDecode(readJson('dummy_data/edit_note.json')),
         ),
       );
       // act
@@ -246,7 +246,7 @@ void main() {
         (_) async => Response(
           requestOptions: RequestOptions(),
           statusCode: 200,
-          data: readJson('dummy_data/delete_note.json'),
+          data: jsonDecode(readJson('dummy_data/delete_note.json')),
         ),
       );
       // act

@@ -51,9 +51,11 @@ class Injection {
     GetIt.I.registerLazySingleton<NoteLocalDataSource>(
         () => NoteLocalDataSourceImpl(GetIt.I()));
 
+    // Helper
+    GetIt.I.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
+
     // External
     GetIt.I.registerLazySingleton<Dio>(() => Dio());
-    GetIt.I.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
     GetIt.I
         .registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(GetIt.I()));
     GetIt.I.registerLazySingleton<InternetConnectionChecker>(

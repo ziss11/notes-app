@@ -43,6 +43,7 @@ dependencies:
     json_annotation: ^4.9.0
     internet_connection_checker: ^1.0.0+1
     sqflite: ^2.3.3+1
+    timeago: ^3.6.1
 
 dev_dependencies:
     flutter_test:

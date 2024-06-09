@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:viapulsa_test/common/exceptions.dart';
@@ -31,7 +29,7 @@ class NoteRemoteDataSourceImpl implements NoteRemoteDataSource {
     );
 
     if (response.statusCode == 201) {
-      final result = jsonDecode(response.data)['message'] as String;
+      final result = response.data['message'] as String;
       return result;
     } else {
       throw ServerException();
@@ -43,7 +41,7 @@ class NoteRemoteDataSourceImpl implements NoteRemoteDataSource {
     final response = await _dio.delete('${dotenv.env['API_URL']}/notes/$id');
 
     if (response.statusCode == 200) {
-      final result = jsonDecode(response.data)['message'] as String;
+      final result = response.data['message'] as String;
       return result;
     } else {
       throw ServerException();
@@ -61,7 +59,7 @@ class NoteRemoteDataSourceImpl implements NoteRemoteDataSource {
     );
 
     if (response.statusCode == 200) {
-      final result = jsonDecode(response.data)['message'] as String;
+      final result = response.data['message'] as String;
       return result;
     } else {
       throw ServerException();
@@ -73,7 +71,7 @@ class NoteRemoteDataSourceImpl implements NoteRemoteDataSource {
     final response = await _dio.get('${dotenv.env['API_URL']}/notes/$id');
 
     if (response.statusCode == 200) {
-      final result = NoteModel.fromJson(jsonDecode(response.data)['data']);
+      final result = NoteModel.fromJson(response.data['data']);
       return result;
     } else {
       throw ServerException();
@@ -85,7 +83,7 @@ class NoteRemoteDataSourceImpl implements NoteRemoteDataSource {
     final response = await _dio.get('${dotenv.env['API_URL']}/notes');
 
     if (response.statusCode == 200) {
-      final result = NoteResponse.fromJson(jsonDecode(response.data)).notes;
+      final result = NoteResponse.fromJson(response.data).notes;
       return result;
     } else {
       throw ServerException();
@@ -100,7 +98,7 @@ class NoteRemoteDataSourceImpl implements NoteRemoteDataSource {
     );
 
     if (response.statusCode == 200) {
-      final result = NoteResponse.fromJson(jsonDecode(response.data)).notes;
+      final result = NoteResponse.fromJson(response.data).notes;
       return result;
     } else {
       throw ServerException();
