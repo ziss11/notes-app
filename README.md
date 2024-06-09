@@ -1,6 +1,6 @@
 # Notes App
 
-This is a small project that I create using Flutter for Android and iOS platform to manage your notes.
+This is a small project that I create using Flutter for Android and iOS platform to manage your notes. I create this project using several approach like Clean Architecture, TDD (Test-driven Development), Reactive Programming using BLoC State Management and Dependency Injection.
 
 ## Table of Contents
 
